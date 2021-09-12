@@ -1,5 +1,12 @@
-import express from "express";
+import http from "http";
 
-const app = express();
+import app from "@src/app";
 
-app.listen(4000);
+const PORT = process.env.PORT || 4000;
+
+export const httpServer = http.createServer(app);
+
+
+httpServer.listen(PORT, () => {
+  console.log(`Listening at ${PORT}`);
+});

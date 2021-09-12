@@ -1,0 +1,52 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:database.db"
+}
+
+model Radiation {
+    id          Int     @id @default(autoincrement())
+    LONGITUDE   Float
+    LATITUDE    Float
+    JANEIRO     Float
+    FEVEREIRO   Float
+    MARCO       Float
+    ABRIL       Float
+    MAIO        Float
+    JUNHO       Float
+    JULHO       Float
+    AGOSTO      Float
+    SETEMBRO    Float    
+    OUTUBRO     Float
+    NOVEMBRO    Float
+    DEZEMBRO    Float
+    ANUAL       Float
+    PRIMAVERA   Float
+    VERAO       Float
+    OUTONO      Float
+    INVERNO     Float
+}
+
+model Temperatura {
+    id          Int     @id @default(autoincrement())
+    ESCOLHA     String
+    Cidade      String
+    UF          String
+    JANEIRO     Float
+    FEVEREIRO   Float
+    MARCO       Float
+    ABRIL       Float
+    MAIO        Float
+    JUNHO       Float
+    JULHO       Float
+    AGOSTO      Float
+    SETEMBRO    Float    
+    OUTUBRO     Float
+    NOVEMBRO    Float
+    DEZEMBRO    Float
+    Tmin        Float
+    Tmax        Float
+}
