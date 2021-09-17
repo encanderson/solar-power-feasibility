@@ -1,7 +1,3 @@
-// action - account reducer
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
-export const ACCOUNT_INITIALIZE = "ACCOUNT_INITIALIZE";
 export const SET_MENU = "SET_MENU";
 
 // action - customization reducer
@@ -16,10 +12,4 @@ export const SET_OUTLINED_FILLED = "@customization/SET_OUTLINED_FILLED";
 
 // action - snackbar
 export const SNACKBAR_OPEN = "@snackbar/SNACKBAR_OPEN";
-
-// action - profile reducer
-export const PICTURE = "PICTURE";
-export const PROVIDER_CONTACT = "PROVIDER_CONTACT";
-export const PROVIDER_COMPANY = "PROVIDER_COMPANY";
-export const PROVIDER_CATEGORIES = "PROVIDER_CATEGORIES";
-export const PROVIDER_CLEAR = "PROVIDER_CLEAR";
+export const SAVE_LOCATION = "SAVE_LOCATION";

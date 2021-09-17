@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-// import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // material-ui
 import { makeStyles } from "@material-ui/core/styles";
@@ -27,6 +27,7 @@ import MaskCExpDate from "@src/utils/Mask";
 import { getAddress } from "@src/api/getAddress";
 import { energySuppliers } from "@src/store/constant";
 import { getTariff } from "@src/api/getTariff";
+import { SNACKBAR_OPEN, SAVE_LOCATION } from "@src/store/actions";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -41,6 +42,11 @@ const LocalForm = (props, { ...others }) => {
   const classes = useStyles();
   const scriptedRef = useScriptRef();
   const history = useHistory();
+  const dispatch = useDispatch();
+
+  const location = useSelector((state) => state.location);
+
+  console.log(location);
 
   const [energySupplier, setEnergySupplier] = React.useState("");
 
@@ -52,20 +58,39 @@ const LocalForm = (props, { ...others }) => {
     let code = values.zipCode.replace(".", "").replace("-", "");
     const response = await getAddress(code);
     if (response) {
-      console.log(response);
-      console.log(energySupplier);
-      const resp = await getTariff(energySuppliers, "2020");
-      if (resp) {
-        console.log(resp);
+      if (energySupplier) {
+        dispatch({
+          type: SAVE_LOCATION,
+          payload: {
+            location: response,
+            energySupplier: energySupplier,
+          },
+        });
+        // history.push("/calculo-de-viabilidade");
+        const resp = await getTariff(energySupplier, "2020");
+        if (resp) {
+          console.log(resp);
+        }
+      } else {
+        console.log(energySupplier);
+        dispatch({
+          type: SNACKBAR_OPEN,
+          open: true,
+          message: "Selecione uma distribuidora.",
+          variant: "alert",
+          anchorOrigin: { vertical: "top", horizontal: "center" },
+          alertSeverity: "error",
+          close: false,
+        });
       }
     }
-    history.push("/calculo-de-viabilidade");
   };
 
   return (
     <Formik
       initialValues={{
         zipCode: "",
+
         submit: null,
       }}
       validationSchema={Yup.object().shape({
