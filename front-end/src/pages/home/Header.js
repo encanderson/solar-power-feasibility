@@ -1,16 +1,8 @@
 import React from "react";
-import { Link as RouterLink } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@material-ui/core/styles";
-import {
-  Box,
-  Button,
-  Container,
-  Grid,
-  // Link,
-  Typography,
-} from "@material-ui/core";
+import { Box, Container, Grid, Link, Typography } from "@material-ui/core";
 
 // third party
 import { motion } from "framer-motion";
@@ -31,10 +23,8 @@ const HeaderPage = (divRef) => {
         textAlign="center"
         sx={{
           mt: "100px",
-          mb: "80px",
           [theme.breakpoints.down("sm")]: {
             mt: { xs: "116px", sm: "32px" },
-            mb: "20px",
           },
         }}
       >
@@ -99,47 +89,23 @@ const HeaderPage = (divRef) => {
                     lineHeight: { xs: "24px", md: "32px" },
                   }}
                 >
-                  Queremos fazer parte da sua transição digital, trazendo
-                  soluções alinhadas ao desenvolvimento sustentável, sabendo que
-                  em nossas vidas
+                  Uma calculdora para contribuir no processo de análise para a
+                  tomada de decisão de investimento em um sistema de geração de
+                  eletricidade, nomeadamente para os sistemas fotovoltaicos. Os
+                  códigos do Front-End e do Back-End podem ser encontrados no
+                  repositório do
                   <Box
                     component="span"
                     sx={{ ml: 1, color: theme.palette.primary.main }}
                   >
-                    Tudo se Conecta.
+                    <Link
+                      href="https://github.com/encanderson/solar-power-feasibility"
+                      target={"_blank"}
+                    >
+                      GitHub
+                    </Link>
                   </Box>
                 </Typography>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12} sx={{ my: 3.25 }}>
-              <motion.div
-                initial={{ opacity: 0, translateY: 550 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
-                  delay: 0.4,
-                }}
-              >
-                <Grid
-                  container
-                  spacing={2}
-                  sx={{ justifyContent: { xs: "center", md: "center" } }}
-                >
-                  <Grid item>
-                    <Button
-                      component={RouterLink}
-                      to="/contato"
-                      type="button"
-                      size="large"
-                      variant="contained"
-                      color="primary"
-                    >
-                      Contato
-                    </Button>
-                  </Grid>
-                </Grid>
               </motion.div>
             </Grid>
           </Grid>

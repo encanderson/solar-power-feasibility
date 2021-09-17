@@ -3,10 +3,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Header from "@src/pages/home/Header";
+import LocalInformation from "@src/pages/home/location";
 
 const useStyles = makeStyles((theme) => ({
   header: {
-    paddingTop: "30px",
+    paddingTop: "0px",
     overflowX: "hidden",
     overflowY: "clip",
     [theme.breakpoints.down("sm")]: {
@@ -22,6 +23,7 @@ const Home = () => {
     <React.Fragment>
       <div id="home" className={classes.header}>
         <Header />
+        <LocalInformation />
       </div>
     </React.Fragment>
   );

@@ -1,9 +1,8 @@
-import config from "@src/config";
+// import config from "@src/config";
 
-const BASE_URL = config.baseUrl;
+// const CEP_URL = config.cepUrl;
 
-function createUrl(path) {
-  const url = `${BASE_URL}${path}`;
-  return url;
-}
-export default createUrl;
+// export function createCepUrl(path) {
+//   const url = `${CEP_URL}${path}`;
+//   return url;
+// }

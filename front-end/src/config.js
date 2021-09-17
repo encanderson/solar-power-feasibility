@@ -11,7 +11,6 @@ const config = {
     secret: process.env.REACT_APP_SECRET_KEY,
     timeout: "1 days",
   },
-  baseUrl: "http://auth.orianderson.com",
 };
 
 export default config;
