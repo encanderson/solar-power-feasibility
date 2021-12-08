@@ -5,3 +5,4 @@ dist/
 public/
 yarn.lock
 test.ts
+geo.js

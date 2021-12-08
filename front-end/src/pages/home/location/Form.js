@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 // material-ui
 import { makeStyles } from "@material-ui/core/styles";
@@ -24,10 +24,10 @@ import { Formik } from "formik";
 import useScriptRef from "@src/hooks/useScriptRef";
 import MaskCExpDate from "@src/utils/Mask";
 
-import { getAddress } from "@src/api/getAddress";
-import { energySuppliers } from "@src/store/constant";
-import { getTariff } from "@src/api/getTariff";
-import { SNACKBAR_OPEN, SAVE_LOCATION } from "@src/store/actions";
+import { energySuppliers, states, disponibilidade } from "@src/store/constant";
+import { SNACKBAR_OPEN } from "@src/store/actions";
+import { getCities } from "@src/api/getCities";
+import { validateRequest } from "@src/utils/validate";
 
 // style constant
 const useStyles = makeStyles((theme) => ({
@@ -44,45 +44,61 @@ const LocalForm = (props, { ...others }) => {
   const history = useHistory();
   const dispatch = useDispatch();
 
-  const location = useSelector((state) => state.location);
+  const [form, setForm] = React.useState({
+    city: "",
+    demand: "",
+    disponibilidade: "",
+    distributor: "",
+    state: "",
+    zip: "",
+  });
 
-  console.log(location);
-
-  const [energySupplier, setEnergySupplier] = React.useState("");
+  const [cities, setCities] = React.useState([]);
 
   const handleSupplier = async (_, value) => {
-    setEnergySupplier(value?.value);
+    setForm({
+      ...form,
+      distributor: value?.value,
+    });
   };
 
-  const handleLocation = async (values) => {
-    let code = values.zipCode.replace(".", "").replace("-", "");
-    const response = await getAddress(code);
-    if (response) {
-      if (energySupplier) {
-        dispatch({
-          type: SAVE_LOCATION,
-          payload: {
-            location: response,
-            energySupplier: energySupplier,
-          },
-        });
-        // history.push("/calculo-de-viabilidade");
-        const resp = await getTariff(energySupplier, "2020");
-        if (resp) {
-          console.log(resp);
-        }
-      } else {
-        console.log(energySupplier);
-        dispatch({
-          type: SNACKBAR_OPEN,
-          open: true,
-          message: "Selecione uma distribuidora.",
-          variant: "alert",
-          anchorOrigin: { vertical: "top", horizontal: "center" },
-          alertSeverity: "error",
-          close: false,
-        });
-      }
+  const handleState = async (_, value) => {
+    setForm({
+      ...form,
+      state: value?.value,
+    });
+    const data = await getCities(value?.value);
+    setCities(data);
+  };
+
+  const handleCity = (_, value) => {
+    setForm({
+      ...form,
+      city: value,
+    });
+  };
+
+  const handleConnectionType = (_, value) => {
+    setForm({
+      ...form,
+      disponibilidade: value?.value,
+    });
+  };
+
+  const handleCalc = async (zip) => {
+    const resp = validateRequest(form);
+    if (resp) {
+      history.push("/resultados");
+    } else {
+      dispatch({
+        type: SNACKBAR_OPEN,
+        open: true,
+        message: "Preencha todos os dados.",
+        variant: "alert",
+        anchorOrigin: { vertical: "top", horizontal: "center" },
+        alertSeverity: "error",
+        close: false,
+      });
     }
   };
 
@@ -90,7 +106,6 @@ const LocalForm = (props, { ...others }) => {
     <Formik
       initialValues={{
         zipCode: "",
-
         submit: null,
       }}
       validationSchema={Yup.object().shape({
@@ -98,7 +113,7 @@ const LocalForm = (props, { ...others }) => {
       })}
       onSubmit={async (values, { setErrors, setStatus, setSubmitting }) => {
         try {
-          await handleLocation(values);
+          await handleCalc(values.zipCode);
 
           if (scriptedRef.current) {
             setStatus({ success: true });
@@ -165,6 +180,58 @@ const LocalForm = (props, { ...others }) => {
             <Autocomplete
               autoSelect={true}
               fullWidth
+              id="state"
+              style={{ marginBottom: 8 }}
+              options={states}
+              getOptionLabel={(option) => option.label}
+              getOptionSelected={(option, value) =>
+                option.label === value.label
+              }
+              // value={provider.address.state || ""}
+              onChange={handleState}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label={"Estado"}
+                  // placeholder={provider.address.state}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password",
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              autoSelect={true}
+              fullWidth
+              id="city"
+              style={{ marginBottom: 8 }}
+              options={cities}
+              getOptionLabel={(option) => option}
+              getOptionSelected={(option, value) => option === value}
+              // value={provider.address.state || ""}
+              onChange={handleCity}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label={"Cidade"}
+                  // placeholder={provider.address.state}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password",
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              autoSelect={true}
+              fullWidth
               id="stateComnpany"
               style={{ marginBottom: 8 }}
               options={energySuppliers}
@@ -188,35 +255,47 @@ const LocalForm = (props, { ...others }) => {
               )}
             />
           </Grid>
-          {/* <FormControl
-            fullWidth
-            error={Boolean(touched.energySuppliers && errors.energySuppliers)}
-            className={classes.formInput}
-            variant="outlined"
-          >
-            <InputLabel htmlFor="outlined-adornment-energySuppliers">
-              Distribuidora ou Forncedora de Eletricidade
-            </InputLabel>
-            <OutlinedInput
-              id="outlined-adornment-cpf-register"
+          <Grid item xs={12}>
+            <Autocomplete
+              autoSelect={true}
               fullWidth
-              value={values.energySuppliers}
-              onBlur={handleBlur}
-              onChange={handleChange}
-              name="energySuppliers"
+              id="city"
+              style={{ marginBottom: 8 }}
+              options={disponibilidade}
+              getOptionLabel={(option) => option.label}
+              getOptionSelected={(option, value) =>
+                option.label === value.label
+              }
+              onChange={handleConnectionType}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label={"Tipo de Ligação"}
+                  // placeholder={provider.address.state}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password",
+                  }}
+                />
+              )}
             />
-            {touched.energySuppliers && errors.energySuppliers && (
-              <FormHelperText error id="standard-weight-helper-text--energy">
-                {" "}
-                {errors.energySuppliers}{" "}
-              </FormHelperText>
-            )}
-          </FormControl>
-          {errors.submit && (
-            <Box mt={3}>
-              <FormHelperText error>{errors.submit}</FormHelperText>
-            </Box>
-          )} */}
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label={"Consumo Médio de Eletricidade - kWh"}
+              inputProps={{
+                autoComplete: "new-password",
+              }}
+              onChange={(event) =>
+                setForm({
+                  ...form,
+                  demand: event.target.value,
+                })
+              }
+            />
+          </Grid>
           <Box mt={2}>
             <Button
               color="secondary"

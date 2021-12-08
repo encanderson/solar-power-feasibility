@@ -329,3 +329,9 @@ export const energySuppliers = [
   { value: "SULGIPE" },
   { value: "UHENPAL" },
 ];
+
+export const disponibilidade = [
+  { label: "Monofásico", value: 30 },
+  { label: "Bifásico", value: 50 },
+  { label: "Trifasíco", value: 100 },
+];

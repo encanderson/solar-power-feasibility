@@ -18,7 +18,7 @@ const LocalInformation = () => {
         justifyContent={matchDownSM ? "center" : "space-between"}
         alignItems="center"
       >
-        <Grid item xs={12} sx={{ minHeight: "100vh", height: "100%" }}>
+        <Grid item xs={12} sx={{ minHeight: "105vh", height: "100%" }}>
           <Grid
             sx={{
               minHeight: "100vh",

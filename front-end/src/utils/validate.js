@@ -35,3 +35,20 @@ export const validadeProvider = (data) => {
   }
   return true;
 };
+
+export const validateRequest = (data) => {
+  const array = [
+    data.state,
+    data.city,
+    data.distributor,
+    data.disponibilidade,
+    data.demand,
+  ];
+
+  for (let i = 0; i < array.length; i += 1) {
+    if (array[i] === "") {
+      return false;
+    }
+  }
+  return true;
+};
