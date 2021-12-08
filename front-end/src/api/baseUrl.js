@@ -1,8 +1,8 @@
-// import config from "@src/config";
+import config from "@src/config";
 
-// const CEP_URL = config.cepUrl;
+const CEP_URL = config.api;
 
-// export function createCepUrl(path) {
-//   const url = `${CEP_URL}${path}`;
-//   return url;
-// }
+export function createApiUrl(path) {
+  const url = `${CEP_URL}${path}`;
+  return url;
+}

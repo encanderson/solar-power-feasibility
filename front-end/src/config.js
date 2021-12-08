@@ -11,6 +11,7 @@ const config = {
     secret: process.env.REACT_APP_SECRET_KEY,
     timeout: "1 days",
   },
+  api: "http://localhost:4000",
 };
 
 export default config;

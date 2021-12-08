@@ -27,6 +27,7 @@ import MaskCExpDate from "@src/utils/Mask";
 import { energySuppliers, states, disponibilidade } from "@src/store/constant";
 import { SNACKBAR_OPEN } from "@src/store/actions";
 import { getCities } from "@src/api/getCities";
+import { calcSystem } from "@src/api/sizing";
 import { validateRequest } from "@src/utils/validate";
 
 // style constant
@@ -88,7 +89,23 @@ const LocalForm = (props, { ...others }) => {
   const handleCalc = async (zip) => {
     const resp = validateRequest(form);
     if (resp) {
-      history.push("/resultados");
+      const response = await calcSystem(form);
+      if (response.status) {
+        history.push({
+          pathname: "/resultados",
+          state: response.data,
+        });
+      } else {
+        dispatch({
+          type: SNACKBAR_OPEN,
+          open: true,
+          message: "Ocorreu uma falha no processamento.",
+          variant: "alert",
+          anchorOrigin: { vertical: "top", horizontal: "center" },
+          alertSeverity: "error",
+          close: false,
+        });
+      }
     } else {
       dispatch({
         type: SNACKBAR_OPEN,

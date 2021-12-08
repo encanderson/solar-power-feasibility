@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 
 // material-ui
 import { Grid, Typography } from "@material-ui/core";
@@ -10,6 +11,10 @@ import { gridSpacing } from "@src/store/constant";
 // ===========================|| ||=========================== //
 
 const CardResults = () => {
+  const location = useLocation();
+
+  console.log(location.state);
+
   return (
     <MainCard>
       <Grid container spacing={gridSpacing}>
