@@ -12,4 +12,6 @@ app.use(
   })
 );
 
+require("@src/routes/sizing.routes")(app);
+
 export default app;
