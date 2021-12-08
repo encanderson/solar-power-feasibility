@@ -2,7 +2,7 @@ import React from "react";
 
 // material-ui
 import { useTheme } from "@material-ui/core/styles";
-import { Box, Container, Grid, Link, Typography } from "@material-ui/core";
+import { Box, Container, Grid, Typography } from "@material-ui/core";
 
 // third party
 import { motion } from "framer-motion";
@@ -24,7 +24,7 @@ const HeaderPage = (divRef) => {
         sx={{
           mt: "100px",
           [theme.breakpoints.down("sm")]: {
-            mt: { xs: "116px", sm: "32px" },
+            mt: { xs: "116px", sm: "22px" },
           },
         }}
       >
@@ -58,52 +58,11 @@ const HeaderPage = (divRef) => {
                     lineHeight: { xs: "42px", sm: "56px", md: "80px" },
                   }}
                 >
-                  Bem vindo à
                   <Box
                     component="span"
                     sx={{ ml: 2, color: theme.palette.primary.main }}
                   >
-                    Calculadora Solar
-                  </Box>
-                </Typography>
-              </motion.div>
-            </Grid>
-            <Grid item xs={12}>
-              <motion.div
-                initial={{ opacity: 0, translateY: 550 }}
-                animate={{ opacity: 1, translateY: 0 }}
-                transition={{
-                  type: "spring",
-                  stiffness: 150,
-                  damping: 30,
-                  delay: 0.2,
-                }}
-              >
-                <Typography
-                  variant="h4"
-                  component="div"
-                  color="inherit"
-                  sx={{
-                    fontSize: { xs: "1rem", md: "1.125rem" },
-                    fontWeight: "400",
-                    lineHeight: { xs: "24px", md: "32px" },
-                  }}
-                >
-                  Uma calculdora para contribuir no processo de análise para a
-                  tomada de decisão de investimento em um sistema de geração de
-                  eletricidade, nomeadamente para os sistemas fotovoltaicos. Os
-                  códigos do Front-End e do Back-End podem ser encontrados no
-                  repositório do
-                  <Box
-                    component="span"
-                    sx={{ ml: 1, color: theme.palette.primary.main }}
-                  >
-                    <Link
-                      href="https://github.com/encanderson/solar-power-feasibility"
-                      target={"_blank"}
-                    >
-                      GitHub
-                    </Link>
+                    Resultados
                   </Box>
                 </Typography>
               </motion.div>

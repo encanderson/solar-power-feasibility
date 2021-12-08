@@ -7,29 +7,6 @@ datasource db {
   url      = "file:database.db"
 }
 
-model Radiation {
-    id          Int     @id @default(autoincrement())
-    LONGITUDE   Float
-    LATITUDE    Float
-    JANEIRO     Float
-    FEVEREIRO   Float
-    MARCO       Float
-    ABRIL       Float
-    MAIO        Float
-    JUNHO       Float
-    JULHO       Float
-    AGOSTO      Float
-    SETEMBRO    Float    
-    OUTUBRO     Float
-    NOVEMBRO    Float
-    DEZEMBRO    Float
-    ANUAL       Float
-    PRIMAVERA   Float
-    VERAO       Float
-    OUTONO      Float
-    INVERNO     Float
-}
-
 model Temperatura {
     id          Int     @id @default(autoincrement())
     ESCOLHA     String
@@ -49,4 +26,42 @@ model Temperatura {
     DEZEMBRO    Float
     Tmin        Float
     Tmax        Float
+}
+
+model Irradiation {
+  id          Int     @id @default(autoincrement())
+  NAME        String
+  STATE       String
+  ANNUAL      Float
+  JAN         Float
+  FEB         Float
+  MAR         Float
+  APR         Float
+  MAY         Float
+  JUN         Float
+  JUL         Float
+  AUG         Float
+  SEP         Float
+  OCT         Float
+  NOV         Float
+  DEC         Float
+}
+
+model Inclinacao {
+  id          Int     @id @default(autoincrement())
+  latinclina  Float
+  latitude    Float
+  Inclinacao  Float
+  Jan         Float
+  Fev         Float
+  Mar         Float
+  Abr         Float
+  Mai         Float
+  Jun         Float
+  Jul         Float
+  Ago         Float
+  Set         Float
+  Out         Float
+  Nov         Float
+  Dez         Float
 }
