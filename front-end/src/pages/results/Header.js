@@ -22,9 +22,9 @@ const HeaderPage = (divRef) => {
         spacing={gridSpacing}
         textAlign="center"
         sx={{
-          mt: "100px",
+          mt: "40px",
           [theme.breakpoints.down("sm")]: {
-            mt: { xs: "116px", sm: "22px" },
+            mt: { xs: "46px", sm: "12px" },
           },
         }}
       >
