@@ -43,6 +43,7 @@ export const validateRequest = (data) => {
     data.distributor,
     data.disponibilidade,
     data.demand,
+    data.nearCity,
   ];
 
   for (let i = 0; i < array.length; i += 1) {

@@ -11,7 +11,7 @@ export const calcTamb = async (nearCity: string): Promise<number[]> => {
 
   const temperaturas = await prisma.temperatura.findFirst({
     where: {
-      ESCOLHA: nearCity,
+      Cidade: nearCity,
     },
   });
 

@@ -57,7 +57,7 @@ const LocalForm = (props, { ...others }) => {
     distributor: "",
     state: "",
     zip: "",
-    nearCitie: "",
+    nearCity: "",
   });
 
   const [cities, setCities] = React.useState([]);
@@ -95,7 +95,7 @@ const LocalForm = (props, { ...others }) => {
   const handleNearCity = (_, value) => {
     setForm({
       ...form,
-      nearCitie: value?.value,
+      nearCity: value?.value,
     });
   };
 
