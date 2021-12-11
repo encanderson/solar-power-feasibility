@@ -1,8 +1,16 @@
 import React from "react";
+// import { Link } from "react-router-dom";
 
 // material-ui
 import { useTheme } from "@material-ui/core/styles";
-import { Box, Container, Grid, Link, Typography } from "@material-ui/core";
+import {
+  Box,
+  Container,
+  Grid,
+  Typography,
+  Link,
+  Button,
+} from "@material-ui/core";
 
 // third party
 import { motion } from "framer-motion";
@@ -98,12 +106,16 @@ const HeaderPage = (divRef) => {
                     component="span"
                     sx={{ ml: 1, color: theme.palette.primary.main }}
                   >
-                    <Link
-                      href="https://github.com/encanderson/solar-power-feasibility"
-                      target={"_blank"}
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      href={
+                        "https://github.com/encanderson/solar-power-feasibility"
+                      }
+                      target="_blank"
                     >
                       GitHub
-                    </Link>
+                    </Button>
                   </Box>
                 </Typography>
               </motion.div>

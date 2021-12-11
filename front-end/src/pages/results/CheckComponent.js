@@ -8,7 +8,7 @@ import {
   Checkbox,
 } from "@material-ui/core";
 
-const CheckComponent = ({ check, setCheck, title }) => {
+const CheckComponent = ({ check, setCheck, title, handleCheck }) => {
   return (
     <Grid item xs={12}>
       <Grid container spacing={1}>
@@ -17,7 +17,10 @@ const CheckComponent = ({ check, setCheck, title }) => {
             control={
               <Checkbox
                 checked={check}
-                onChange={(event) => setCheck(event.target.checked)}
+                onChange={(event) => {
+                  setCheck(event.target.checked);
+                  handleCheck();
+                }}
                 name="checked"
                 color="primary"
               />

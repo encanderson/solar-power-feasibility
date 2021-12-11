@@ -46,6 +46,19 @@ const CardResults = () => {
     }
     // eslint-disable-next-line
   }, [checkEnergy, checkTemp, checkHSP]);
+
+  const handleCheck = () => {
+    if (checkEnergy) {
+      setCheckHSP(false);
+      setCheckTemp(false);
+    } else if (checkHSP) {
+      setCheckTemp(false);
+      setCheckEnergy(false);
+    } else if (checkTemp) {
+      setCheckHSP(false);
+      setCheckEnergy(false);
+    }
+  };
   return (
     <>
       <MainCard>
@@ -147,43 +160,24 @@ const CardResults = () => {
                   <Grid item xs={12}>
                     <Typography variant="h4">Gráficos</Typography>
                   </Grid>
-                  {checkEnergy ? (
-                    <CheckComponent
-                      check={checkEnergy}
-                      setCheck={setCheckEnergy}
-                      title={"Produção de Energia"}
-                    />
-                  ) : checkTemp ? (
-                    <CheckComponent
-                      check={checkTemp}
-                      setCheck={setCheckTemp}
-                      title={"Temperatura"}
-                    />
-                  ) : checkHSP ? (
-                    <CheckComponent
-                      check={checkHSP}
-                      setCheck={setCheckHSP}
-                      title={"Hora de Sol Pico"}
-                    />
-                  ) : (
-                    <>
-                      <CheckComponent
-                        check={checkEnergy}
-                        setCheck={setCheckEnergy}
-                        title={"Produção de Energia"}
-                      />
-                      <CheckComponent
-                        check={checkTemp}
-                        setCheck={setCheckTemp}
-                        title={"Temperatura"}
-                      />
-                      <CheckComponent
-                        check={checkHSP}
-                        setCheck={setCheckHSP}
-                        title={"Hora de Sol Pico"}
-                      />
-                    </>
-                  )}
+                  <CheckComponent
+                    check={checkEnergy}
+                    setCheck={setCheckEnergy}
+                    title={"Produção de Energia"}
+                    handleCheck={handleCheck}
+                  />
+                  <CheckComponent
+                    check={checkTemp}
+                    setCheck={setCheckTemp}
+                    title={"Temperatura"}
+                    handleCheck={handleCheck}
+                  />
+                  <CheckComponent
+                    check={checkHSP}
+                    setCheck={setCheckHSP}
+                    title={"Hora de Sol Pico"}
+                    handleCheck={handleCheck}
+                  />
                 </Grid>
               </Grid>
             </Grid>
@@ -193,12 +187,6 @@ const CardResults = () => {
       <div style={{ marginTop: 15 }}>
         <ChartResult isLoading={isLoading} data={chart} title={title} />
       </div>
-      {/* <div style={{ marginTop: 15 }}>
-        <TempChart isLoading={isLoading} data={data.temperature} />
-      </div>
-      <div style={{ marginTop: 15 }}>
-        <HSPChart isLoading={isLoading} data={data.hsp} />
-      </div> */}
     </>
   );
 };

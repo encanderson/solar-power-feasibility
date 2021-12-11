@@ -24,7 +24,12 @@ import { Formik } from "formik";
 import useScriptRef from "@src/hooks/useScriptRef";
 import MaskCExpDate from "@src/utils/Mask";
 
-import { energySuppliers, states, disponibilidade } from "@src/store/constant";
+import {
+  energySuppliers,
+  states,
+  disponibilidade,
+  nearCities,
+} from "@src/store/constant";
 import { SNACKBAR_OPEN } from "@src/store/actions";
 import { getCities } from "@src/api/getCities";
 import { calcSystem } from "@src/api/sizing";
@@ -52,6 +57,7 @@ const LocalForm = (props, { ...others }) => {
     distributor: "",
     state: "",
     zip: "",
+    nearCitie: "",
   });
 
   const [cities, setCities] = React.useState([]);
@@ -86,6 +92,13 @@ const LocalForm = (props, { ...others }) => {
     });
   };
 
+  const handleNearCity = (_, value) => {
+    setForm({
+      ...form,
+      nearCitie: value?.value,
+    });
+  };
+
   const handleCalc = async (zip) => {
     const resp = validateRequest(form);
     if (resp) {
@@ -103,7 +116,7 @@ const LocalForm = (props, { ...others }) => {
           variant: "alert",
           anchorOrigin: { vertical: "top", horizontal: "center" },
           alertSeverity: "error",
-          close: false,
+          close: true,
         });
       }
     } else {
@@ -114,7 +127,7 @@ const LocalForm = (props, { ...others }) => {
         variant: "alert",
         anchorOrigin: { vertical: "top", horizontal: "center" },
         alertSeverity: "error",
-        close: false,
+        close: true,
       });
     }
   };
@@ -236,6 +249,33 @@ const LocalForm = (props, { ...others }) => {
                   {...params}
                   variant="outlined"
                   label={"Cidade"}
+                  // placeholder={provider.address.state}
+                  inputProps={{
+                    ...params.inputProps,
+                    autoComplete: "new-password",
+                  }}
+                />
+              )}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Autocomplete
+              autoSelect={true}
+              fullWidth
+              id="nearCity"
+              style={{ marginBottom: 8 }}
+              options={nearCities}
+              getOptionLabel={(option) => option.label}
+              getOptionSelected={(option, value) =>
+                option.value === value.value
+              }
+              // value={provider.address.state || ""}
+              onChange={handleNearCity}
+              renderInput={(params) => (
+                <TextField
+                  {...params}
+                  variant="outlined"
+                  label={"Cidade mais próxima"}
                   // placeholder={provider.address.state}
                   inputProps={{
                     ...params.inputProps,
