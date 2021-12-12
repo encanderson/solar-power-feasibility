@@ -94,5 +94,5 @@ To any questions feel free to contact me.
 ### References
 
 <p style="text-align: justify;">
-Atlas Brasileiro de Energia Solar, INPE (Instituto Nacional de Pesquisas Espaciais), 2017. Disponível em: <a href=" http://labren.ccst.inpe.br/" target="_blank">Atlas Brasileiro de Energia Solar</a>
+Atlas Brasileiro de Energia Solar, INPE (Instituto Nacional de Pesquisas Espaciais), 2017. Disponível em: <a href="http://labren.ccst.inpe.br/" target="_blank">Atlas Brasileiro de Energia Solar</a>
 </p>
