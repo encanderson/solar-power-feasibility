@@ -3,7 +3,14 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 // material-ui
-import { Grid, Typography, useTheme } from "@material-ui/core";
+import {
+  Grid,
+  Typography,
+  useTheme,
+  Button,
+  Link,
+  Box,
+} from "@material-ui/core";
 
 // third-party
 import ApexCharts from "apexcharts";
@@ -115,6 +122,32 @@ const CharResult = ({ isLoading, data, title }) => {
                     </Grid>
                   </Grid>
                 </Grid>
+                <Typography
+                  variant="h4"
+                  component="div"
+                  color="inherit"
+                  sx={{
+                    fontSize: { xs: "1rem", md: "1.125rem" },
+                    fontWeight: "400",
+                    lineHeight: { xs: "24px", md: "32px" },
+                  }}
+                >
+                  {" "}
+                  Fonte:
+                  <Box
+                    component="span"
+                    sx={{ ml: 1, color: theme.palette.primary.main }}
+                  >
+                    <Button
+                      color="inherit"
+                      component={Link}
+                      href={"http://labren.ccst.inpe.br/"}
+                      target="_blank"
+                    >
+                      Atlas Brasileiro de Energia Solar
+                    </Button>
+                  </Box>
+                </Typography>
               </Grid>
             </Grid>
             <Grid item xs={12}>
